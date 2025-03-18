@@ -1,0 +1,23 @@
+# Dockerfile.backend
+
+# Voy a usar la versión Slim de Python
+FROM python:3.9-slim
+
+# El directorio de trabajo será /app
+
+WORKDIR /app
+
+# Copia de requirements.txt e instalar dependencias
+COPY backend/requirements.txt .
+
+# Instalación de dependencias de Python
+RUN pip install -r requirements.txt
+
+# Copia del código del backend
+COPY backend/ .
+
+# Exposición del puerto 8000
+EXPOSE 8000
+
+# Ejecución del servidor de Django
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

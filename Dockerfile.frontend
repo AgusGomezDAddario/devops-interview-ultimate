@@ -1,0 +1,32 @@
+# Dockerfile.frontend
+
+# Uso de la imagen de Node.js versión 16. El uso del 'as build' es para referenciar
+FROM node:16 as build
+
+# Establecimiento de /app como directorio de trabajo
+WORKDIR /app
+
+# Copia de archivos de dependencias
+COPY frontend/package.json frontend/package-lock.json ./
+
+# Instalación de dependencias
+RUN npm install
+
+# Copia de contenido de la carpeta frontend
+COPY frontend/ .
+
+# Complicación de la aplicación React
+RUN npm run build
+
+# Uso de la imagen nginx con la variante alpine, elegida por su ligeresa
+FROM nginx:alpine
+
+# Copia de los archivos generados en el BUILD dentro de la imagen nginx
+COPY --from=build /app/build /usr/share/nginx/html
+
+# Exposición del puerto 80
+EXPOSE 80
+
+# Definición del comando que se ejecuta cuando inicia el contenedor. Nginx en primer plano
+CMD ["nginx", "-g", "daemon off;"]
+
