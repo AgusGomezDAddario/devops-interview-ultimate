@@ -2,6 +2,13 @@
 
 Este proyecto consiste en el despliegue de una aplicación web dockerizada, que cuenta con backend en Django y frontend en React.js. El despliegue de la misma puede realizarse tanto de manera local como en entornos cloud (como puede ser AWS).
 
+## 🌟 Características
+
+- **Backend**: Django (API RESTful).
+- **Frontend**: React.js (interfaz de usuario).
+- **Base de datos**: PostgreSQL.
+- **Despliegue**: Docker y Docker Compose.
+
 ## 🚀 Despliegue Local
 
 ### Requisitos previos 
@@ -20,6 +27,12 @@ cd {nombre-repo}
 docker-compose up --build
 
 #### 3. Acceso a la aplicación mediante navegador:
-
 🌐 Frontend: http://localhost:3000/
 🌐 Backend: http://localhost:8000/
+
+#### 4. Detención de los contenedores
+Ctrl + C (en consola de comandos)
+docker-compose down
+
+
+## ☁️ Despliegue en AWS
