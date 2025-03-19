@@ -1,91 +1,130 @@
-# Despliegue de aplicación Django + React.js
+# 🚀 Despliegue de aplicación Django + React.js con Docker  
 
-Este proyecto consiste en el despliegue de una aplicación web dockerizada, que cuenta con backend en Django y frontend en React.js. El despliegue de la misma puede realizarse tanto de manera local como en entornos cloud (como puede ser AWS).
+Este proyecto proporciona el despliegue dockerizado de una aplicación web que incluye:  
 
-## 🌟 Características
+- **Backend**: Django (API RESTful).  
+- **Frontend**: React.js (interfaz de usuario).  
+- **Base de datos**: PostgreSQL.  
+- **Orquestación**: Docker y Docker Compose.  
 
-- **Backend**: Django (API RESTful).
-- **Frontend**: React.js (interfaz de usuario).
-- **Base de datos**: PostgreSQL.
-- **Despliegue**: Docker y Docker Compose.
+El despliegue puede realizarse tanto en un entorno local como en la nube (AWS).  
 
-## 🚀 Despliegue Local
+## 📌 Requisitos previos  
 
-### Requisitos previos 
+Antes de iniciar el despliegue, tenés que contar con los siguientes elementos:  
 
-- Contar con Docker instalado.
-- Contar con Docker Compose instalado.
-- Contar con Git instalado (una alternativa podria ser contar con el repositorio clonado en el almacenamiento local).
+- **Docker** instalado.  
+- **Docker Compose** instalado.  
+- **Git** instalado.  
+- **Claves SSH** (solo para despliegue en AWS).  
 
-### Instrucciones
+## 🖥️ Despliegue local  
 
-#### 1. Clonación de repositorio:
-git clone {direccion-repo}
-cd {nombre-repo}
+### 1️⃣ Clonar el repositorio  
 
-#### 2. Levantamiento de contenedores:
-docker-compose up --build
-
-#### 3. Acceso a la aplicación mediante navegador:
-🌐 Frontend: http://localhost:3000/
-🌐 Backend: http://localhost:8000/
-
-#### 4. Detención de los contenedores
-Ctrl + C (en consola de comandos)
-docker-compose down
-
-
-## ☁️ Despliegue en AWS
-
-### Requisitos previos
-
-- Poseer una cuenta en AWS para crear una instancia EC2.
-- Contar con Docker instalado.
-- Contar con Docker Compose instalado.
-- Contar con un par de claves SSH para conectarse a la instancia EC2.
-
-### Instrucciones
-
-#### 1. Crear una instancia EC2
-
-1.1. **Creación de una instancia EC2 en AWS**: La configuración del grupo de seguridad debe permitir el tráfico en los siguientes puertos:
-     - **22 (SSH)**: Para la conexión a la instancia.
-     - **3000 (HTTP)**: Para el frontend (React.js).
-     - **8000 (HTTP)**: Para el backend (Django).
-
-1.2. **Conexión a la instancia**: Mediante SSH, se genera la conexión a la instancia:
-ssh -i /ruta/a/tu-clave.pem ubuntu@<IP-PÚBLICA>
-
-#### 2. Instalación de Docker y Docker Compose
-
-2.1. **Actualizar el sistema**:
-sudo apt update
-
-2.2. **Instalación de Docker**
-sudo apt install docker.io -y
-
-2.3. **Instalación de Docker Compose**
-sudo apt install docker-compose -y
-
-2.4. **Agregar al usuario al grupo de Docker**
-sudo usermod -aG docker $USER
-
-2.5. **Reinicio de la sesión**
-exit
-ssh -i /ruta/a/tu-clave.pem ubuntu@<IP-PÚBLICA>
-
-#### 3. Clonación del repositorio
-
+```sh
 git clone https://github.com/tu-usuario/tu-repositorio.git
 cd tu-repositorio
+```
 
-#### 4. Levantamiento de contenedores
+### 2️⃣ Levantar los contenedores  
+
+```sh
 docker-compose up --build
+```
 
-#### 5. Acceso a la aplicación mediante navegador:
-🌐 Frontend: http://<IP-PÚBLICA>:3000/
-🌐 Backend: http://<IP-PÚBLICA>:8000/
+### 3️⃣ Acceder a la aplicación  
 
-#### 6. Detención de los contenedores
-Ctrl + C (en consola de comandos)
+- **Frontend**: [http://localhost:3000/](http://localhost:3000/)  
+- **Backend**: [http://localhost:8000/](http://localhost:8000/)  
+
+### 4️⃣ Detener los contenedores (cuando ya no quieras usar la aplicación) 
+
+Para detener los contenedores presioná `Ctrl + C` en la terminal o ejecuta:  
+
+```sh
 docker-compose down
+```
+
+---
+
+## ☁️ Despliegue en AWS  
+
+### 1️⃣ Crear y configurar una instancia EC2  
+
+1. Acceder a la consola de AWS y crear una nueva instancia EC2 (se recomienda el uso de Ubuntu).  
+2. Configurar el grupo de seguridad permitiendo el tráfico en los siguientes puertos:  
+   - **22 (SSH)**: Para la conexión remota.  
+   - **3000 (HTTP)**: Para el frontend.  
+   - **8000 (HTTP)**: Para el backend.  
+3. Descargar la clave privada (`.pem`) para la conexión SSH.  
+
+### 2️⃣ Conectarse a la instancia vía SSH  
+
+```sh
+ssh -i /ruta/a/tu-clave.pem ubuntu@<IP-PÚBLICA>
+```
+
+### 3️⃣ Instalar Docker y Docker Compose  
+
+```sh
+sudo apt update && sudo apt install -y docker.io docker-compose
+```
+
+Agregar al usuario al grupo de Docker:
+
+```sh
+sudo usermod -aG docker $USER
+```
+
+Luego, reconectarse:  
+
+```sh
+exit
+ssh -i /ruta/a/tu-clave.pem ubuntu@<IP-PÚBLICA>
+```
+
+### 4️⃣ Clonar el repositorio  
+
+```sh
+git clone https://github.com/tu-usuario/tu-repositorio.git
+```
+
+Navegar a la raíz del repositorio:
+
+```sh
+cd tu-repositorio
+```
+
+### 5️⃣ Levantar los contenedores  
+
+```sh
+docker-compose up --build -d
+```
+
+### 6️⃣ Acceder a la aplicación  
+
+- **Frontend**: [http://<IP-PÚBLICA>:3000/](http://<IP-PÚBLICA>:3000/)  
+- **Backend**: [http://<IP-PÚBLICA>:8000/](http://<IP-PÚBLICA>:8000/)  
+
+### 7️⃣ Detener los contenedores (cuando ya no quieras usar la aplicación)
+
+```sh
+docker-compose down
+```
+
+---
+
+## 📜 Notas adicionales  
+
+- Para ejecutar los contenedores en segundo plano, usar la opción `-d`:  
+
+  ```sh
+  docker-compose up --build -d
+  ```
+
+- Para verificar los logs de un servicio específico, ejecutar:  
+
+  ```sh
+  docker-compose logs -f <nombre-del-servicio>
+  ```
