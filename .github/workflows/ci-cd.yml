@@ -35,6 +35,12 @@ jobs:
           sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
           sudo systemctl start docker
 
+      - name: ⚙ Instalar docker-compose tradicional
+        run: |
+          sudo curl -L "https://github.com/docker/compose/releases/download/v2.24.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+          docker-compose --version
+
       - name: 🛠 Construir y desplegar el contenedor
         run: |
           docker-compose down || true
