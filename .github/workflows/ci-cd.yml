@@ -13,13 +13,17 @@ jobs:
       - name: 📥 Clonar el repositorio
         uses: actions/checkout@v3
 
-      - name: ⚙️ Remover el containered existente
+      - name: ⚙ Remover el containered existente
         run: |
           sudo apt-get remove -y containerd
+          sudo apt-get purge -y containerd
+          sudo rm -rf /var/lib/containerd
+          sudo rm -rf /etc/containerd
 
-      - name: ⚙️ Configurar Docker
+      - name: ⚙ Configurar Docker
         run: |
           sudo apt update
+          sudo apt install -y containerd.io
           sudo apt install -y docker.io docker-compose
           sudo systemctl start docker
 
