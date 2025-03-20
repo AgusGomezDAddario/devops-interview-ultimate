@@ -1,0 +1,25 @@
+name: CI/CD Nginx Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Clonar el repositorio
+        uses: actions/checkout@v3
+
+      - name: ⚙️  Configurar Docker
+        run: |
+          sudo apt update
+          sudo apt install -y docker.io docker-compose
+          sudo systemctl start docker
+
+      - name: 🛠 Construir y desplegar el contenedor
+        run: |
+          docker-compose down || true
+          docker-compose up --build -d

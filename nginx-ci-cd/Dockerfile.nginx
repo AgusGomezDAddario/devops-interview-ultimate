@@ -1,0 +1,19 @@
+# Dockerfile.nginx
+
+# Utilización de la imagen oficial de Nginx en su versión Alpine por su ligereza
+FROM nginx:alpine as base
+
+# Establecimiento del directorio de trabajo
+WORKDIR /usr/share/nginx/html
+
+# Eliminación del archivo por defecto de Nginx
+RUN rm -rf ./*
+
+# Copia del archivo index.html dentro del contenedor
+COPY index.html /usr/share/nginx/html/index.html
+
+# Exposición del puerto 80 para alojar la aplicación web
+EXPOSE 80
+
+# Definición del comando que ejecutará el contenedor
+CMD ["nginx", "-g", "daemon off;"]
