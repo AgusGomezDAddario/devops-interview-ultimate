@@ -13,7 +13,11 @@ jobs:
       - name: 📥 Clonar el repositorio
         uses: actions/checkout@v3
 
-      - name: ⚙️  Configurar Docker
+      - name: ⚙️ Remover el containered existente
+        run: |
+          sudo apt-get remove -y containerd
+
+      - name: ⚙️ Configurar Docker
         run: |
           sudo apt update
           sudo apt install -y docker.io docker-compose
