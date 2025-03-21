@@ -1,130 +1,81 @@
-# 🚀 Despliegue de aplicación Django + React.js con Docker  
+# 🚀 Prueba Técnica - DevOps
 
-Este proyecto proporciona el despliegue dockerizado de una aplicación web que incluye:  
+Este repositorio contiene la resolución de la prueba técnica para el puesto de DevOps en Craftech. La prueba consta de tres puntos principales:
 
-- **Backend**: Django (API RESTful).  
-- **Frontend**: React.js (interfaz de usuario).  
-- **Base de datos**: PostgreSQL.  
-- **Orquestación**: Docker y Docker Compose.  
+1. **Diagrama de Red**: Diseño de una arquitectura en AWS para una aplicación web.
+2. **Despliegue de una aplicación Django + React.js**: Implementación de un despliegue dockerizado.
+3. **CI/CD para Nginx**: Automatización del despliegue de un servidor Nginx.
 
-El despliegue puede realizarse tanto en un entorno local como en la nube (AWS).  
+## 📌 Estructura del repositorio
+/repositorio
+│
+├── /punto-1-diagrama-red
+│ ├── diagrama-red.png (o .pdf)
+│ ├── descripcion-arquitectura.md
+│
+├── /punto-2-despliegue-django-react
+│ ├── /backend
+│ │ ├── Dockerfile
+│ │ ├── requirements.txt
+│ │ ├── manage.py
+│ │ └── ... (resto del código Django)
+│ ├── /frontend
+│ │ ├── Dockerfile
+│ │ ├── package.json
+│ │ └── ... (resto del código React)
+│ ├── docker-compose.yml
+│ ├── README.md
+│
+├── /punto-3-ci-cd-nginx
+│ ├── /nginx
+│ │ ├── Dockerfile
+│ │ ├── index.html
+│ ├── docker-compose.yml
+│ ├── .github/workflows/ci-cd.yml
+│ ├── README.md
+│
+└── README.md (este archivo)
 
-## 📌 Requisitos previos  
 
-Antes de iniciar el despliegue, tenés que contar con los siguientes elementos:  
+## 🛠 Cómo ejecutar cada punto
 
-- **Docker** instalado.  
-- **Docker Compose** instalado.  
-- **Git** instalado.  
-- **Claves SSH** (solo para despliegue en AWS).  
+### 1. Diagrama de Red
 
-## 🖥️ Despliegue local  
+- **Archivos**:
+  - `diagrama-red.png`: Diagrama de la arquitectura propuesta.
+  - `descripcion-arquitectura.md`: Explicación detallada de las decisiones técnicas.
+- **Instrucciones**: Revisá los archivos en la carpeta `/punto-1-diagrama-red`.
 
-### 1️⃣ Clonar el repositorio  
+### 2. Despliegue de Django + React.js
 
-```sh
-git clone https://github.com/tu-usuario/tu-repositorio.git
-cd tu-repositorio
-```
+- **Archivos**:
+  - `Dockerfile` para backend y frontend.
+  - `docker-compose.yml` para orquestar los contenedores.
+  - `README.md` con instrucciones detalladas.
+- **Instrucciones**: Seguí las instrucciones en `/punto-2-despliegue-django-react/README.md`.
 
-### 2️⃣ Levantar los contenedores  
+### 3. CI/CD para Nginx
 
-```sh
-docker-compose up --build
-```
+- **Archivos**:
+  - `Dockerfile` para Nginx.
+  - `index.html` que se sirve mediante Nginx.
+  - `docker-compose.yml` para gestionar el servicio de Nginx.
+  - `.github/workflows/ci-cd.yml` para el pipeline de CI/CD.
+  - `README.md` con instrucciones detalladas.
+- **Instrucciones**: Seguí las instrucciones en `/punto-3-ci-cd-nginx/README.md`.
 
-### 3️⃣ Acceder a la aplicación  
+## 🛠 Herramientas utilizadas
 
-- **Frontend**: [http://localhost:3000/](http://localhost:3000/)  
-- **Backend**: [http://localhost:8000/](http://localhost:8000/)  
+- **Docker**: Para contenerizar las aplicaciones.
+- **Docker Compose**: Para orquestar los contenedores.
+- **GitHub Actions**: Para implementar el pipeline de CI/CD.
+- **AWS**: Para el diseño de la arquitectura en el punto 1.
+- **Nginx**: Como servidor web en el punto 3.
+- **Django y React.js**: Para la aplicación full-stack en el punto 2.
 
-### 4️⃣ Detener los contenedores (cuando ya no quieras usar la aplicación) 
+## 📜 Notas adicionales
 
-Para detener los contenedores presioná `Ctrl + C` en la terminal o ejecuta:  
-
-```sh
-docker-compose down
-```
-
----
-
-## ☁️ Despliegue en AWS  
-
-### 1️⃣ Crear y configurar una instancia EC2  
-
-1. Acceder a la consola de AWS y crear una nueva instancia EC2 (se recomienda el uso de Ubuntu).  
-2. Configurar el grupo de seguridad permitiendo el tráfico en los siguientes puertos:  
-   - **22 (SSH)**: Para la conexión remota.  
-   - **3000 (HTTP)**: Para el frontend.  
-   - **8000 (HTTP)**: Para el backend.  
-3. Descargar la clave privada (`.pem`) para la conexión SSH.  
-
-### 2️⃣ Conectarse a la instancia vía SSH  
-
-```sh
-ssh -i /ruta/a/tu-clave.pem ubuntu@<IP-PÚBLICA>
-```
-
-### 3️⃣ Instalar Docker y Docker Compose  
-
-```sh
-sudo apt update && sudo apt install -y docker.io docker-compose
-```
-
-Agregar al usuario al grupo de Docker:
-
-```sh
-sudo usermod -aG docker $USER
-```
-
-Luego, reconectarse:  
-
-```sh
-exit
-ssh -i /ruta/a/tu-clave.pem ubuntu@<IP-PÚBLICA>
-```
-
-### 4️⃣ Clonar el repositorio  
-
-```sh
-git clone https://github.com/tu-usuario/tu-repositorio.git
-```
-
-Navegar a la raíz del repositorio:
-
-```sh
-cd tu-repositorio
-```
-
-### 5️⃣ Levantar los contenedores  
-
-```sh
-docker-compose up --build -d
-```
-
-### 6️⃣ Acceder a la aplicación  
-
-- **Frontend**: [http://<IP-PÚBLICA>:3000/](http://<IP-PÚBLICA>:3000/)  
-- **Backend**: [http://<IP-PÚBLICA>:8000/](http://<IP-PÚBLICA>:8000/)  
-
-### 7️⃣ Detener los contenedores (cuando ya no quieras usar la aplicación)
-
-```sh
-docker-compose down
-```
+- **Documentación**: Cada punto tiene su propio README con instrucciones detalladas.
 
 ---
 
-## 📜 Notas adicionales  
-
-- Para ejecutar los contenedores en segundo plano, usar la opción `-d`:  
-
-  ```sh
-  docker-compose up --build -d
-  ```
-
-- Para verificar los logs de un servicio específico, ejecutar:  
-
-  ```sh
-  docker-compose logs -f <nombre-del-servicio>
-  ```
