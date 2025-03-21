@@ -41,7 +41,13 @@ jobs:
           sudo chmod +x /usr/local/bin/docker-compose
           docker-compose --version
 
+      - name: 🛠 Cambiar al directorio punto-3-ci-cd-nginx
+        run: |
+          cd punto-3-ci-cd-nginx
+          ls -l
+
       - name: 🛠 Construir y desplegar el contenedor
+        working-directory: ./punto-3-ci-cd-nginx
         run: |
           docker-compose down || true
           docker-compose up --build -d
