@@ -8,7 +8,8 @@ Este repositorio contiene la resolución de la prueba técnica para el puesto de
 
 ## 📌 Estructura del repositorio
 /repositorio
-│
+├── .github/workflows/ci-cd.yml
+|
 ├── /punto-1-diagrama-red
 │ ├── diagrama-red.png (o .pdf)
 │ ├── descripcion-arquitectura.md
@@ -31,7 +32,6 @@ Este repositorio contiene la resolución de la prueba técnica para el puesto de
 │ │ ├── Dockerfile
 │ │ ├── index.html
 │ ├── docker-compose.yml
-│ ├── .github/workflows/ci-cd.yml
 │ ├── README.md
 │
 └── README.md (este archivo)
