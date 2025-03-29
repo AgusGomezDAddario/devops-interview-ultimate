@@ -1,6 +1,6 @@
 # 🚀 Prueba Técnica - DevOps
 
-Este repositorio contiene la resolución de la prueba técnica para el puesto de DevOps en Craftech. La prueba consta de tres puntos principales:
+Este repositorio contiene la resolución de la prueba técnica para un puesto de DevOps. La prueba consta de tres puntos principales:
 
 1. **Diagrama de Red**: Diseño de una arquitectura en AWS para una aplicación web.
 2. **Despliegue de una aplicación Django + React.js**: Implementación de un despliegue dockerizado.
